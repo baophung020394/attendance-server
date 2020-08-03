@@ -6,7 +6,7 @@ const db = require('../config/db');
 router.get('/list', async (req, res) => {
     console.log(req.body)
     try {
-        const attandances = Attandance.find()
+        const attandances = await Attandance.find({})
 
         res.status(201).send({ attandances })
     } catch (error) {

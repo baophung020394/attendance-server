@@ -7,6 +7,9 @@ const attandanceSchema = mongoose.Schema({
     userId: {
         type: String
     },
+    userName: {
+        type: String
+    },
     clockIn: {
         type: String
     },
