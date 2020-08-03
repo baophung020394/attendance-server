@@ -3,6 +3,19 @@ const User = require('../src/models/User')
 
 const router = express.Router()
 
+
+/** List Users */
+router.get('/list-user', async (req, res) => {
+    console.log(req.body)
+    try {
+        const users = User.find()
+
+        res.status(201).json({ users })
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+/** List Users */
 router.post('/users', async (req, res) => {
     // Create a new user
     try {
@@ -15,6 +28,7 @@ router.post('/users', async (req, res) => {
     }
 })
 
+/** Login */
 router.post('/users/login', async(req, res) => {
     //Login a registered user
     try {
@@ -38,4 +52,32 @@ router.post('/users/login', async(req, res) => {
 
 })
 
+/** Update Users */
+router.post('/users/update/:id', async ( req, res) => {
+    console.log(req.body)
+    try {
+        let clockIn = req.body.clockIn;
+        let clockOut = req.body.clockIn;
+        let latitude = req.body.latitude;
+        let longitude = req.body.longitude;
+        let id = req.params.id
+        const user = await User.findOneAndUpdate(
+            { _id: id},
+            { $set: { 
+                clockIn: clockIn,
+                clockOut: clockOut,
+                longitude: longitude,
+                latitude: latitude
+            }}
+        );
+        if (!user) {
+            return res.status(401).send({error: 'Update fail'});
+        }
+        res.json({
+            users: user
+         })
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
 module.exports = router

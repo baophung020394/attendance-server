@@ -1,5 +1,6 @@
 const express = require('express');
 const userRouter = require('./routers/user');
+const attandanceRouter = require('./routers/attandance');
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const port = process.env.PORT
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 
 // app.use(express.json())
 app.use(userRouter)
+app.use(attandanceRouter)
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
